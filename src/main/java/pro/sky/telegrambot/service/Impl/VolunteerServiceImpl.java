@@ -1,13 +1,14 @@
-package pro.sky.telegrambot.service;
+package pro.sky.telegrambot.service.Impl;
 
 import org.springframework.stereotype.Service;
 import pro.sky.telegrambot.model.Volunteer;
 import pro.sky.telegrambot.repository.VolunteerRepository;
+import pro.sky.telegrambot.service.VolunteerService;
 
 import java.util.List;
 import java.util.Optional;
 @Service
-public class VolunteerServiceImpl implements VolunteerService{
+public class VolunteerServiceImpl implements VolunteerService {
     private final VolunteerRepository volunteerRepository;
     public VolunteerServiceImpl(VolunteerRepository volunteerRepository) {
         this.volunteerRepository = volunteerRepository;

@@ -1,4 +1,4 @@
-package pro.sky.telegrambot.service;
+package pro.sky.telegrambot.service.Impl;
 
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.SendMessage;
@@ -10,6 +10,7 @@ import pro.sky.telegrambot.model.Client;
 import pro.sky.telegrambot.model.Report;
 import pro.sky.telegrambot.repository.ClientRepository;
 import pro.sky.telegrambot.repository.ReportRepository;
+import pro.sky.telegrambot.service.ReportService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ReportServiceImpl implements ReportService{
+public class ReportServiceImpl implements ReportService {
     private final ReportRepository reportRepository;
     private final ClientRepository clientRepository;
     private final TelegramBot telegramBot;

@@ -1,7 +1,5 @@
 package pro.sky.telegrambot.model;
 
-import org.hibernate.annotations.Type;
-import pro.sky.telegrambot.model.Shelter;
 
 import javax.persistence.*;
 

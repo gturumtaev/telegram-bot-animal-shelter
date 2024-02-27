@@ -1,42 +1,16 @@
-package pro.sky.telegrambot.service;
+package pro.sky.telegrambot.service.Impl;
 
 import com.pengrad.telegrambot.model.request.KeyboardButton;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.SendMessage;
-import com.vdurmont.emoji.EmojiParser;
 import org.springframework.stereotype.Component;
+import pro.sky.telegrambot.service.CatInfoSelectionService;
+
+import static pro.sky.telegrambot.constans.Constans.*;
 
 @Component
-public class CatInfoSelectionServiceImpl implements CatInfoSelectionService{
-    @Override
-    public SendMessage selectionInfo(Long chat_id) {
-        String smile_cat = EmojiParser.parseToUnicode(":cat2:");
+public class CatInfoSelectionServiceImpl implements CatInfoSelectionService {
 
-        KeyboardButton keyboardButton1 = new KeyboardButton("Правила знакомства");
-        KeyboardButton keyboardButton2 = new KeyboardButton("Список документов");
-        KeyboardButton keyboardButton3 = new KeyboardButton("Рекомендации по транспортировке");
-        KeyboardButton keyboardButton4 = new KeyboardButton("Обустройство котенка");
-        KeyboardButton keyboardButton5 = new KeyboardButton("Обустройство для взрослого кота");
-        KeyboardButton keyboardButton6 = new KeyboardButton("Обустройство для ограниченного");
-        KeyboardButton keyboardButton7 = new KeyboardButton("Список причин для отказа");
-        KeyboardButton keyboardButton8 = new KeyboardButton("Оставить номер телефона");
-        KeyboardButton keyboardButton9 = new KeyboardButton(smile_cat + " Связаться с волонтером");
-        KeyboardButton keyboardButton10 = new KeyboardButton(smile_cat+ " В начало");
-
-        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup(keyboardButton1, keyboardButton2);
-        keyboardMarkup.addRow(keyboardButton3, keyboardButton4);
-        keyboardMarkup.addRow(keyboardButton5, keyboardButton6);
-        keyboardMarkup.addRow(keyboardButton7, keyboardButton8);
-        keyboardMarkup.addRow(keyboardButton9, keyboardButton10);
-
-        keyboardMarkup.resizeKeyboard(true);
-
-        String text_bot = "Привет, дорогой усыновитель! Выбери нужную тебе информацию. \nЕсли что могу связать с волонтером.";
-        SendMessage sendMessage = new SendMessage(chat_id, text_bot);
-        sendMessage.replyMarkup(keyboardMarkup);
-
-        return sendMessage;
-    }
 
     @Override
     public SendMessage kittenArrangementSelection(Long chat_id) {

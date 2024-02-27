@@ -1,10 +1,11 @@
-package pro.sky.telegrambot.service;
+package pro.sky.telegrambot.service.Impl;
 
 import com.pengrad.telegrambot.request.SendMessage;
 import org.springframework.stereotype.Component;
+import pro.sky.telegrambot.service.AnimalInfoSelectionService;
 
 @Component
-public class AnimalInfoSelectionServiceImpl implements AnimalInfoSelectionService{
+public class AnimalInfoSelectionServiceImpl implements AnimalInfoSelectionService {
 
     @Override
     public SendMessage datingRulesSelection(Long chat_id) {

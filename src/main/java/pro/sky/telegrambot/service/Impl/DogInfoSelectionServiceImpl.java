@@ -1,63 +1,40 @@
-package pro.sky.telegrambot.service;
+package pro.sky.telegrambot.service.Impl;
 
 import com.pengrad.telegrambot.model.request.KeyboardButton;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.SendMessage;
-import com.vdurmont.emoji.EmojiParser;
 import org.springframework.stereotype.Component;
 
+import static pro.sky.telegrambot.constans.Constans.*;
+
 @Component
-public class DogInfoSelectionServiceImpl implements IndividualKeyboardButton {
+public class DogInfoSelectionServiceImpl{
 
-    @Override
-    public SendMessage selectionInfo(Long chat_id) {
-        String smile_dog = EmojiParser.parseToUnicode(":dog:");
 
-        KeyboardButton keyboardButton1 = new KeyboardButton("Правила знакомства");
-        KeyboardButton keyboardButton2 = new KeyboardButton("Список документов");
-        KeyboardButton keyboardButton3 = new KeyboardButton("Рекомендации по транспортировке");
-        KeyboardButton keyboardButton4 = new KeyboardButton("Обустройство щенка");
-        KeyboardButton keyboardButton5 = new KeyboardButton("Обустройство для взрослой собаки");
-        KeyboardButton keyboardButton6 = new KeyboardButton("Обустройство для ограниченного");
-        KeyboardButton keyboardButton7 = new KeyboardButton("Список причин для отказа");
-        KeyboardButton keyboardButton8 = new KeyboardButton("Оставить номер телефона");
-        KeyboardButton keyboardButton9 = new KeyboardButton(smile_dog + " Связаться c волонтером");
-        KeyboardButton keyboardButton10 = new KeyboardButton(smile_dog + " В начало");
-
-        KeyboardButton keyboardButton11 = new KeyboardButton("Советы кинолога по первичному общению с собакой");
-        KeyboardButton keyboardButton12 = new KeyboardButton("Рекомендации по проверенным кинологам");
-
-        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup(keyboardButton1, keyboardButton2);
-        keyboardMarkup.addRow(keyboardButton3, keyboardButton4);
-        keyboardMarkup.addRow(keyboardButton5, keyboardButton6);
-        keyboardMarkup.addRow(keyboardButton7, keyboardButton8);
-        keyboardMarkup.addRow(keyboardButton11, keyboardButton12);
-        keyboardMarkup.addRow(keyboardButton9, keyboardButton10);
-
-        keyboardMarkup.resizeKeyboard(true);
-
-        String text_bot = "Привет, дорогой усыновитель! Выбери нужную тебе информацию. \nЕсли что могу связать с волонтером.";
-        SendMessage sendMessage = new SendMessage(chat_id, text_bot);
-        sendMessage.replyMarkup(keyboardMarkup);
-
-        return sendMessage;
-    }
-
-    public SendMessage puppyArrangementSelection(Long chat_id) {
-        String text = """
-                1. Место для сна, такое как кровать или корзина.
-                2. Миски для еды и воды.
-                3. Корм для щенка, соответствующий его возрасту и размеру.
-                4. Игрушки для жевания и развлечения.
-                5. Подстилка или пеленки для учения щенка делать свои нужды на определенном месте.
-                6. Шлейка и поводок для прогулок и тренировок.
-                7. Туалет для щенка, если вы планируете держать его внутри дома.
-                8. Щетка для груминга и ухода за шерстью.
-                9. Дезинфицирующее средство для очистки мест, где щенок делает свои нужды.
-                """;
+    public SendMessage arrangementPuppy(Long chat_id) {
+        String text = "Место для сна\n " +
+                "Выберите место, где будет легко поддерживать чистоту и где щенку будет просторно даже в более зрелом возрасте.\n " +
+                "Пеленки для щенков\n" +
+                "С их помощью очень удобно устранять последствия различных «происшествий», поэтому запасите достаточное количество таких пеленок.\n " +
+                "Переноска\n" +
+                "Взрослой собаке необходимо достаточно места в переноске, чтобы встать, развернуться, лечь и потянуться.\n " +
+                "Миски для воды и корма\n" +
+                "Миски из нержавеющей стали удобны тем, что их нельзя погрызть, они не ржавеют, не разбиваются и не ломаются. Щенкам, чувствительным к шуму, лучше подойдут пластиковые миски.\n " +
+                "Корм для щенков в период роста\n" +
+                "Первое время давайте щенку тот же корм, который он получал у предыдущего владельца.\n " +
+                "Игрушки\n" +
+                "Покупайте игрушки, мячики или жевательные лакомства подходящего для щенка размера. Резиновые игрушки для собак обычно более прочные.\n " +
+                "Ошейник и поводок\n" +
+                "Выберите ошейник, который можно будет регулировать по мере роста щенка. Кроме того, убедитесь, что он достаточно плотно застегивается и не может соскользнуть через голову.\n " +
+                "Моющие средства\n" +
+                "Покупайте безопасные моющие средства, не имеющие сильной отдушки, чтобы у щенка не сформировалось ассоциации этого запаха с «туалетными инцидентами».\n " +
+                "Средства по уходу за шерстью\n" +
+                "В зависимости от типа шерсти вашего щенка вам могут понадобиться щетка, расческа или рукавица для ухода за шерстью. Вам также понадобятся специальные кусачки для когтей собак.\n " +
+                "Средства гигиены\n" +
+                "Выберите зубную щетку, зубную пасту и шампунь, специально разработанные для собак.\n";
         return new SendMessage(chat_id, text);
     }
-    public SendMessage arrangementAdultSelectionDog(Long chat_id) {
+    public SendMessage arrangementAdultDog(Long chat_id) {
         String text = """
                 1. Место для сна, такое как кровать или мягкий матрас.
                 2. Миски для еды и воды, предпочтительно из нержавеющей стали или керамики.
@@ -71,7 +48,7 @@ public class DogInfoSelectionServiceImpl implements IndividualKeyboardButton {
                 """;
         return new SendMessage(chat_id, text);
     }
-    public SendMessage tipsHandlerInitialCommunicationDog(Long chat_id) {
+    public SendMessage advicesDogHandler(Long chat_id) {
         String text = """
                 Вот основные правила, которые следует соблюдать.
                                 

@@ -5,9 +5,7 @@ import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SendPhoto;
 
 public interface ShelterService {
-    SendMessage boardMarkup(Long chat_id);
 
-    SendMessage shelterBoardMarkup(Long chat_id);
 
     SendMessage getWorkScheduleFromDB(Long chat_id);
 
