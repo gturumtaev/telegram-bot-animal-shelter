@@ -81,19 +81,20 @@ public class KeyboardMarkup {
         KeyboardButton keyboardButton1 = new KeyboardButton(BUTTON_DATING_RULES);
         KeyboardButton keyboardButton2 = new KeyboardButton(BUTTON_LIST_DOCUMENTS);
         KeyboardButton keyboardButton3 = new KeyboardButton(BUTTON_TRANSPORTATION_RECOMMENDATION);
-        KeyboardButton keyboardButton4 = new KeyboardButton(BUTTON_ARRANGEMENT_CAT);
-        KeyboardButton keyboardButton5 = new KeyboardButton(BUTTON_ARRANGEMENT_BIG_CAT);
-        KeyboardButton keyboardButton6 = new KeyboardButton(BUTTON_LIMITED_ANIMAL);
-        KeyboardButton keyboardButton7 = new KeyboardButton(BUTTON_REASONS_REFUSAL);
+        KeyboardButton keyboardButton4 = new KeyboardButton(BUTTON_LIMITED_ANIMAL);
+        KeyboardButton keyboardButton5 = new KeyboardButton(BUTTON_REASONS_REFUSAL);
+        KeyboardButton keyboardButton6 = new KeyboardButton(BUTTON_ARRANGEMENT_CAT);
+        KeyboardButton keyboardButton7 = new KeyboardButton(BUTTON_ARRANGEMENT_BIG_CAT);
         KeyboardButton keyboardButton8 = new KeyboardButton(BUTTON_PHONE_CAT_SHELTER);
         KeyboardButton keyboardButton9 = new KeyboardButton(BUTTON_VOLUNTEER_CAT_SHELTER);
         KeyboardButton keyboardButton10 = new KeyboardButton(BUTTON_TO_THE_BEGINNING_CAT);
 
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup(keyboardButton1, keyboardButton2);
         keyboardMarkup.addRow(keyboardButton3, keyboardButton4);
-        keyboardMarkup.addRow(keyboardButton5, keyboardButton6);
-        keyboardMarkup.addRow(keyboardButton7, keyboardButton8);
-        keyboardMarkup.addRow(keyboardButton9, keyboardButton10);
+        keyboardMarkup.addRow(keyboardButton5);
+        keyboardMarkup.addRow(keyboardButton6, keyboardButton7);
+        keyboardMarkup.addRow(keyboardButton8, keyboardButton9);
+        keyboardMarkup.addRow(keyboardButton10);
 
         keyboardMarkup.resizeKeyboard(true);
 
@@ -160,10 +161,10 @@ public class KeyboardMarkup {
         KeyboardButton keyboardButton1 = new KeyboardButton(BUTTON_DATING_RULES);
         KeyboardButton keyboardButton2 = new KeyboardButton(BUTTON_LIST_DOCUMENTS);
         KeyboardButton keyboardButton3 = new KeyboardButton(BUTTON_TRANSPORTATION_RECOMMENDATION);
-        KeyboardButton keyboardButton4 = new KeyboardButton(BUTTON_ARRANGEMENT_DOG);
-        KeyboardButton keyboardButton5 = new KeyboardButton(BUTTON_ARRANGEMENT_BIG_DOG);
-        KeyboardButton keyboardButton6 = new KeyboardButton(BUTTON_LIMITED_ANIMAL);
-        KeyboardButton keyboardButton7 = new KeyboardButton(BUTTON_REASONS_REFUSAL);
+        KeyboardButton keyboardButton4 = new KeyboardButton(BUTTON_LIMITED_ANIMAL);
+        KeyboardButton keyboardButton5 = new KeyboardButton(BUTTON_REASONS_REFUSAL);
+        KeyboardButton keyboardButton6 = new KeyboardButton(BUTTON_ARRANGEMENT_DOG);
+        KeyboardButton keyboardButton7 = new KeyboardButton(BUTTON_ARRANGEMENT_BIG_DOG);
         KeyboardButton keyboardButton8 = new KeyboardButton(BUTTON_PHONE_DOG_SHELTER);
         KeyboardButton keyboardButton9 = new KeyboardButton(BUTTON_PHONE_DOG_SHELTER);
         KeyboardButton keyboardButton10 = new KeyboardButton(BUTTON_VOLUNTEER_DOG_SHELTER);
@@ -173,11 +174,11 @@ public class KeyboardMarkup {
 
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup(keyboardButton1, keyboardButton2);
         keyboardMarkup.addRow(keyboardButton3, keyboardButton4);
-        keyboardMarkup.addRow(keyboardButton5, keyboardButton6);
-        keyboardMarkup.addRow(keyboardButton7, keyboardButton8);
-        keyboardMarkup.addRow(keyboardButton9, keyboardButton10);
-        keyboardMarkup.addRow(keyboardButton11, keyboardButton12);
-        keyboardMarkup.addRow(keyboardButton13);
+        keyboardMarkup.addRow(keyboardButton5);
+        keyboardMarkup.addRow(keyboardButton6, keyboardButton7);
+        keyboardMarkup.addRow(keyboardButton8, keyboardButton9);
+        keyboardMarkup.addRow(keyboardButton10, keyboardButton11);
+        keyboardMarkup.addRow(keyboardButton12, keyboardButton13);
 
         keyboardMarkup.resizeKeyboard(true);
 

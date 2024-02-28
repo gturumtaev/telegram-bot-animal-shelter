@@ -1,10 +1,7 @@
 package pro.sky.telegrambot.service.Impl;
 
-import com.pengrad.telegrambot.model.request.KeyboardButton;
-import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SendPhoto;
-import com.vdurmont.emoji.EmojiParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pro.sky.telegrambot.model.Volunteer;
@@ -20,15 +17,16 @@ import java.util.Objects;
 
 import static pro.sky.telegrambot.constans.Constans.*;
 
+
 @Component
-public class CatShelterServiceImpl implements ShelterService {
+public class ShelterServiceImpl implements ShelterService {
 
     private final ShelterRepository shelterRepository;
     private final DrivingDirectionsRepository drivingDirectionsRepository;
     private final VolunteerService volunteerService;
 
     @Autowired
-    public CatShelterServiceImpl(ShelterRepository shelterRepository, DrivingDirectionsRepository drivingDirectionsRepository, VolunteerService volunteerService, ClientRepository clientRepository) {
+    public ShelterServiceImpl(ShelterRepository shelterRepository, DrivingDirectionsRepository drivingDirectionsRepository, VolunteerService volunteerService, ClientRepository clientRepository) {
         this.shelterRepository = shelterRepository;
         this.drivingDirectionsRepository = drivingDirectionsRepository;
         this.volunteerService = volunteerService;
@@ -39,28 +37,38 @@ public class CatShelterServiceImpl implements ShelterService {
         String workSchedule = shelterRepository.findById(1L).orElseThrow(() -> new NotFoundException("Shelter is empty from DB")).getWorkSchedule();
         return new SendMessage(chat_id, workSchedule);
     }
+
     @Override
     public SendMessage getAddressFromDB(Long chat_id) {
         String address = shelterRepository.findById(1L).orElseThrow(() -> new NotFoundException("Shelter is empty from DB")).getAddress();
         return new SendMessage(chat_id, address);
     }
+
     @Override
     public SendPhoto getDrivingDirections(Long chat_id) {
-        return new SendPhoto(chat_id, Objects.requireNonNull(drivingDirectionsRepository.findById(1L).orElse(null)).getFilePath()).caption("Вот схема проезда к нашему приюту для кошек.");
+        return new SendPhoto(chat_id, Objects.requireNonNull(drivingDirectionsRepository.findById(1L).orElse(null)).getFilePath()).caption("Вот схема проезда к нашему приюту.");
     }
+
     @Override
     public SendMessage getShelterPhoneNumberSecurityFromDB(Long chat_id) {
         String securityPhone = shelterRepository.findById(1L).orElseThrow(() -> new NotFoundException("Shelter is empty from DB")).getSecurity();
         return new SendMessage(chat_id, "Для оформления пропуска на территорию приюта позвоните по номеру телефона - " + securityPhone);
     }
+
     @Override
     public SendMessage getShelterSafetyPrecautionsSecurityFromDB(Long chat_id) {
         String safetyPrecautions = shelterRepository.findById(1L).orElseThrow(() -> new NotFoundException("Shelter is empty from DB")).getSafetyPrecautions();
         return new SendMessage(chat_id, safetyPrecautions);
     }
+
     @Override
-    public SendMessage shelterStory(Long chat_id) {
-        return new SendMessage(chat_id, "Наш приют занимается поиском новых хозяев для бездомных котиков");
+    public SendMessage shelterStoryCat(Long chat_id) {
+
+        return new SendMessage(chat_id, "Наш приют занимается поиском новых хозяев для бездомных кошек");
+    }
+    @Override
+    public SendMessage shelterStoryDog(Long chat_id) {
+        return new SendMessage(chat_id, "Наш приют занимается поиском новых хозяев для бездомных собак");
     }
     @Override
     public SendMessage getVolunteersShelter(Long chat_id) {

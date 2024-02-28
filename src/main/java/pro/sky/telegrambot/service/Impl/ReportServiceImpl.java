@@ -31,7 +31,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     /**
-     * Поиск отчета по его идентификатору в БД.
+     * Поиск отчета по его id в БД.
      * Используется метод репозитория {@link org.springframework.data.jpa.repository.JpaRepository#findById(Object)}
      * @param id Идентификатор искомого отчета.
      * @return Найденного отчета.
