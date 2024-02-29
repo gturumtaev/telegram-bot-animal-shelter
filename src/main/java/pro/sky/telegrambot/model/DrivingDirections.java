@@ -12,6 +12,7 @@ public class DrivingDirections {
     private String filePath;
 
 
+
     @OneToOne
     private Shelter shelter;
 
@@ -35,4 +36,6 @@ public class DrivingDirections {
     public void setShelter(Shelter shelter) {
         this.shelter = shelter;
     }
+
+
 }

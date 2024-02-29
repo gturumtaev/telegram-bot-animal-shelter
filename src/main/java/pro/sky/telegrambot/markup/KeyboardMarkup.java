@@ -28,15 +28,13 @@ public class KeyboardMarkup {
 
     public SendMessage boardMarkupStageZeroCat(Long chat_id) {
         KeyboardButton keyboardButton = new KeyboardButton(BUTTON_INFO_CAT_SHELTER);
-
-        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup(keyboardButton);
-
         KeyboardButton keyboardButton2 = new KeyboardButton(BUTTON_STAGE_2_CAT);
-        keyboardMarkup.addRow(keyboardButton2);
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup(keyboardButton, keyboardButton2);
+
         KeyboardButton keyboardButton3 = new KeyboardButton(BUTTON_REPORT_CAT);
-        keyboardMarkup.addRow(keyboardButton3);
         KeyboardButton keyboardButton4 = new KeyboardButton(BUTTON_VOLUNTEER_CAT_SHELTER);
-        keyboardMarkup.addRow(keyboardButton4);
+        keyboardMarkup.addRow(keyboardButton3, keyboardButton4);
+
         KeyboardButton keyboardButton5 = new KeyboardButton(BUTTON_TO_THE_BEGINNING);
         keyboardMarkup.addRow(keyboardButton5);
 
@@ -66,7 +64,7 @@ public class KeyboardMarkup {
         KeyboardButton keyboardButton7 = new KeyboardButton(BUTTON_SAFETY_CAT_SHELTER);
         KeyboardButton keyboardButton8 = new KeyboardButton(BUTTON_VOLUNTEER_CAT_SHELTER);
         keyboardMarkup.addRow(keyboardButton7, keyboardButton8);
-        KeyboardButton keyboardButton9 = new KeyboardButton(BUTTON_TO_THE_BEGINNING);
+        KeyboardButton keyboardButton9 = new KeyboardButton(BUTTON_TO_THE_BEGINNING_CAT);
         keyboardMarkup.addRow(keyboardButton9);
 
         keyboardMarkup.resizeKeyboard(true);
@@ -104,18 +102,31 @@ public class KeyboardMarkup {
         return sendMessage;
     }
 
+    public SendMessage boardMarkupStageThreeCat(Long chat_id) {
+        KeyboardButton keyboardButton1 = new KeyboardButton(BUTTON_REPORT_FORM);
+        KeyboardButton keyboardButton2 = new KeyboardButton(BUTTON_VOLUNTEER_CAT_SHELTER);
+        KeyboardButton keyboardButton3 = new KeyboardButton(BUTTON_TO_THE_BEGINNING_CAT);
+
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup(keyboardButton1, keyboardButton2);
+        keyboardMarkup.addRow(keyboardButton3);
+
+        keyboardMarkup.resizeKeyboard(true);
+
+        SendMessage sendMessage = new SendMessage(chat_id, INFO_STAGE_3_MESSAGE);
+        sendMessage.replyMarkup(keyboardMarkup);
+
+        return sendMessage;
+    }
 
     public SendMessage boardMarkupStageZeroDog(Long chat_id) {
         KeyboardButton keyboardButton = new KeyboardButton(BUTTON_INFO_DOG_SHELTER);
-
-        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup(keyboardButton);
-
         KeyboardButton keyboardButton2 = new KeyboardButton(BUTTON_STAGE_2_DOG);
-        keyboardMarkup.addRow(keyboardButton2);
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup(keyboardButton, keyboardButton2);
+
         KeyboardButton keyboardButton3 = new KeyboardButton(BUTTON_REPORT_DOG);
-        keyboardMarkup.addRow(keyboardButton3);
         KeyboardButton keyboardButton4 = new KeyboardButton(BUTTON_VOLUNTEER_DOG_SHELTER);
-        keyboardMarkup.addRow(keyboardButton4);
+        keyboardMarkup.addRow(keyboardButton3, keyboardButton4);
+
         KeyboardButton keyboardButton5 = new KeyboardButton(BUTTON_TO_THE_BEGINNING);
         keyboardMarkup.addRow(keyboardButton5);
 
@@ -145,7 +156,7 @@ public class KeyboardMarkup {
         KeyboardButton keyboardButton7 = new KeyboardButton(BUTTON_SAFETY_DOG_SHELTER);
         KeyboardButton keyboardButton8 = new KeyboardButton(BUTTON_VOLUNTEER_DOG_SHELTER);
         keyboardMarkup.addRow(keyboardButton7, keyboardButton8);
-        KeyboardButton keyboardButton9 = new KeyboardButton(BUTTON_TO_THE_BEGINNING);
+        KeyboardButton keyboardButton9 = new KeyboardButton(BUTTON_TO_THE_BEGINNING_DOG);
         keyboardMarkup.addRow(keyboardButton9);
 
         keyboardMarkup.resizeKeyboard(true);
@@ -188,10 +199,11 @@ public class KeyboardMarkup {
         return sendMessage;
     }
 
-    public SendMessage boardMarkupStageThree(Long chat_id) {
+
+    public SendMessage boardMarkupStageThreeDog(Long chat_id) {
         KeyboardButton keyboardButton1 = new KeyboardButton(BUTTON_REPORT_FORM);
-        KeyboardButton keyboardButton2 = new KeyboardButton(BUTTON_VOLUNTEER_SHELTER);
-        KeyboardButton keyboardButton3 = new KeyboardButton(BUTTON_TO_THE_BEGINNING);
+        KeyboardButton keyboardButton2 = new KeyboardButton(BUTTON_VOLUNTEER_DOG_SHELTER);
+        KeyboardButton keyboardButton3 = new KeyboardButton(BUTTON_TO_THE_BEGINNING_DOG);
 
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup(keyboardButton1, keyboardButton2);
         keyboardMarkup.addRow(keyboardButton3);

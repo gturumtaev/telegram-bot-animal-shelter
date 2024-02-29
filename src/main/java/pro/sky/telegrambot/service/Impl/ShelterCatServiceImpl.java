@@ -15,18 +15,15 @@ import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.Objects;
 
-import static pro.sky.telegrambot.constans.Constans.*;
-
-
 @Component
-public class ShelterServiceImpl implements ShelterService {
+public class ShelterCatServiceImpl implements ShelterService {
 
     private final ShelterRepository shelterRepository;
     private final DrivingDirectionsRepository drivingDirectionsRepository;
     private final VolunteerService volunteerService;
 
     @Autowired
-    public ShelterServiceImpl(ShelterRepository shelterRepository, DrivingDirectionsRepository drivingDirectionsRepository, VolunteerService volunteerService, ClientRepository clientRepository) {
+    public ShelterCatServiceImpl(ShelterRepository shelterRepository, DrivingDirectionsRepository drivingDirectionsRepository, VolunteerService volunteerService, ClientRepository clientRepository) {
         this.shelterRepository = shelterRepository;
         this.drivingDirectionsRepository = drivingDirectionsRepository;
         this.volunteerService = volunteerService;
@@ -62,14 +59,11 @@ public class ShelterServiceImpl implements ShelterService {
     }
 
     @Override
-    public SendMessage shelterStoryCat(Long chat_id) {
+    public SendMessage shelterStory(Long chat_id) {
 
         return new SendMessage(chat_id, "Наш приют занимается поиском новых хозяев для бездомных кошек");
     }
-    @Override
-    public SendMessage shelterStoryDog(Long chat_id) {
-        return new SendMessage(chat_id, "Наш приют занимается поиском новых хозяев для бездомных собак");
-    }
+
     @Override
     public SendMessage getVolunteersShelter(Long chat_id) {
         List<Volunteer> volunteersDog = volunteerService.findVolunteerByShelterId(1L);
