@@ -43,7 +43,9 @@ public class ShelterDogServiceImpl implements ShelterService {
 
     @Override
     public SendPhoto getDrivingDirections(Long chat_id) {
-        return new SendPhoto(chat_id, Objects.requireNonNull(drivingDirectionsRepository.findById(2L).orElse(null)).getFilePath()).caption("Вот схема проезда к нашему приюту.");
+        String url = Objects.requireNonNull(drivingDirectionsRepository.findById(2L).orElse(null)).getFilePath();
+        url = url.substring(0, url.length() - 1);
+        return new SendPhoto(chat_id, url);
     }
 
     @Override

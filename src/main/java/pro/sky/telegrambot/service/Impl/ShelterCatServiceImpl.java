@@ -2,8 +2,15 @@ package pro.sky.telegrambot.service.Impl;
 
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SendPhoto;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
+import org.telegram.telegrambots.meta.api.objects.media.InputMediaPhoto;
 import pro.sky.telegrambot.model.Volunteer;
 import pro.sky.telegrambot.repository.ClientRepository;
 import pro.sky.telegrambot.repository.DrivingDirectionsRepository;
@@ -11,7 +18,11 @@ import pro.sky.telegrambot.repository.ShelterRepository;
 import pro.sky.telegrambot.service.ShelterService;
 import pro.sky.telegrambot.service.VolunteerService;
 
+import javax.imageio.ImageIO;
 import javax.ws.rs.NotFoundException;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 
@@ -40,10 +51,18 @@ public class ShelterCatServiceImpl implements ShelterService {
         String address = shelterRepository.findById(1L).orElseThrow(() -> new NotFoundException("Shelter is empty from DB")).getAddress();
         return new SendMessage(chat_id, address);
     }
-
     @Override
     public SendPhoto getDrivingDirections(Long chat_id) {
-        return new SendPhoto(chat_id, Objects.requireNonNull(drivingDirectionsRepository.findById(1L).orElse(null)).getFilePath()).caption("Вот схема проезда к нашему приюту.");
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        String url = (Objects.requireNonNull(drivingDirectionsRepository.findById(1L).orElse(null)).getFilePath());
+        HttpGet httpGet = new HttpGet(url.substring(0, url.length() - 1));
+        byte[] imageBytes = new byte[0];
+        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+            imageBytes = EntityUtils.toByteArray(response.getEntity());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new SendPhoto(chat_id, imageBytes);
     }
 
     @Override
