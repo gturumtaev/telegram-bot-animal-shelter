@@ -53,16 +53,9 @@ public class ShelterCatServiceImpl implements ShelterService {
     }
     @Override
     public SendPhoto getDrivingDirections(Long chat_id) {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        String url = (Objects.requireNonNull(drivingDirectionsRepository.findById(1L).orElse(null)).getFilePath());
-        HttpGet httpGet = new HttpGet(url.substring(0, url.length() - 1));
-        byte[] imageBytes = new byte[0];
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            imageBytes = EntityUtils.toByteArray(response.getEntity());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new SendPhoto(chat_id, imageBytes);
+        String url = Objects.requireNonNull(drivingDirectionsRepository.findById(1L).orElse(null)).getFilePath();
+        url = url.substring(0, url.length() - 1);
+        return new SendPhoto(chat_id, url);
     }
 
     @Override
