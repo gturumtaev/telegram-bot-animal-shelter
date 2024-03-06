@@ -12,6 +12,7 @@ public class Volunteer {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id")
     private Long id;
     private String firstName;
     private String phoneNumber;

@@ -7,10 +7,10 @@ import javax.persistence.*;
 public class DrivingDirections {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     private String filePath;
-
 
 
     @OneToOne
@@ -36,6 +36,4 @@ public class DrivingDirections {
     public void setShelter(Shelter shelter) {
         this.shelter = shelter;
     }
-
-
 }

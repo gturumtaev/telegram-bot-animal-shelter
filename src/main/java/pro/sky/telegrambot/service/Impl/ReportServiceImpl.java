@@ -3,14 +3,18 @@ package pro.sky.telegrambot.service.Impl;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.SendResponse;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import pro.sky.telegrambot.model.Client;
 import pro.sky.telegrambot.model.Report;
 import pro.sky.telegrambot.repository.ClientRepository;
 import pro.sky.telegrambot.repository.ReportRepository;
 import pro.sky.telegrambot.service.ReportService;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
