@@ -2,11 +2,12 @@ package pro.sky.telegrambot.service.Impl;
 
 import com.pengrad.telegrambot.request.SendMessage;
 import org.springframework.stereotype.Component;
+import pro.sky.telegrambot.service.DogInfoService;
 
 import static pro.sky.telegrambot.constans.Constans.*;
 
 @Component
-public class DogInfoService implements pro.sky.telegrambot.service.DogInfoService {
+public class DogInfoServiceImpl implements DogInfoService {
 
 
     public SendMessage arrangementPuppy(Long chat_id) {

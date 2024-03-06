@@ -17,7 +17,8 @@ public interface ShelterService {
 
     SendMessage getShelterSafetyPrecautionsSecurityFromDB(Long chat_id);
 
-    SendMessage shelterStory(Long chat_id);
+    SendMessage shelterStoryCat(Long chat_id);
+    SendMessage shelterStoryDog(Long chat_id);
 
     SendMessage getVolunteersShelter(Long chat_id);
 }
