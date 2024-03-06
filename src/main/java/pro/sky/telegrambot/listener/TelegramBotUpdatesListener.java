@@ -22,6 +22,8 @@ import pro.sky.telegrambot.service.*;
 import pro.sky.telegrambot.markup.KeyboardMarkup;
 import pro.sky.telegrambot.markup.ShelterKeyboardMarkup;
 import pro.sky.telegrambot.service.Impl.DogInfoServiceImpl;
+import pro.sky.telegrambot.service.Impl.ShelterCatServiceImpl;
+import pro.sky.telegrambot.service.Impl.ShelterDogServiceImpl;
 
 import javax.annotation.PostConstruct;
 import java.io.FileOutputStream;
@@ -48,7 +50,8 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
     private final String photoAnimalDir;
     private final GeneralInfoService animalInfoSelectionService;
     private final KeyboardMarkup keyboardMarkup;
-    private final ShelterService shelterService;
+    private final ShelterCatServiceImpl shelterCatService;
+    private final ShelterDogServiceImpl shelterDogService;
     private final CatInfoService catInfoService;
     private final DogInfoServiceImpl dogInfoSelectionService;
 
@@ -63,14 +66,14 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
     public TelegramBotUpdatesListener(@Value("${path.to.photo.folder}") String photoAnimalDir,
                                       GeneralInfoService animalInfoSelectionService,
                                       KeyboardMarkup keyboardMarkup,
-                                      ShelterService shelterService,
-                                      CatInfoService catInfoService,
+                                      ShelterCatServiceImpl shelterCatService, ShelterDogServiceImpl shelterDogService, CatInfoService catInfoService,
                                       DogInfoServiceImpl dogInfoSelectionService,
                                       ReportRepository reportRepository, ClientRepository clientRepository, ShelterKeyboardMarkup shelterKeyboardMarkup) {
         this.photoAnimalDir = photoAnimalDir;
         this.animalInfoSelectionService = animalInfoSelectionService;
         this.keyboardMarkup = keyboardMarkup;
-        this.shelterService = shelterService;
+        this.shelterCatService = shelterCatService;
+        this.shelterDogService = shelterDogService;
         this.catInfoService = catInfoService;
         this.dogInfoSelectionService = dogInfoSelectionService;
         this.reportRepository = reportRepository;
@@ -106,17 +109,17 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                 } else if (textMessage.equals(BUTTON_INFO_CAT_SHELTER)) {
                     executeSendMessage(keyboardMarkup.boardMarkupStageOneCat(chat_id));
                 } else if (textMessage.equals(BUTTON_ABOUT_CAT_SHELTER)) {
-                    executeSendMessage(shelterService.shelterStoryCat(chat_id));
+                    executeSendMessage(shelterCatService.shelterStory(chat_id));
                 } else if (textMessage.equals(BUTTON_MODE_CAT_SHELTER)) {
-                    executeSendMessage(shelterService.getWorkScheduleFromDB(chat_id));
+                    executeSendMessage(shelterCatService.getWorkScheduleFromDB(chat_id));
                 } else if (textMessage.equals(BUTTON_ADDRESS_CAT_SHELTER)) {
-                    executeSendMessage(shelterService.getAddressFromDB(chat_id));
+                    executeSendMessage(shelterCatService.getAddressFromDB(chat_id));
                 } else if (textMessage.equals(BUTTON_SCHEME_CAT_SHELTER)) {
-                    executePhoto(shelterService.getDrivingDirections(chat_id));
+                    executePhoto(shelterCatService.getDrivingDirections(chat_id));
                 } else if (textMessage.equals(BUTTON_PASS_CAT_SHELTER)) {
-                    executeSendMessage(shelterService.getShelterPhoneNumberSecurityFromDB(chat_id));
+                    executeSendMessage(shelterCatService.getShelterPhoneNumberSecurityFromDB(chat_id));
                 } else if (textMessage.equals(BUTTON_SAFETY_CAT_SHELTER)) {
-                    executeSendMessage(shelterService.getShelterSafetyPrecautionsSecurityFromDB(chat_id));
+                    executeSendMessage(shelterCatService.getShelterSafetyPrecautionsSecurityFromDB(chat_id));
                 } else if (textMessage.equals(BUTTON_PHONE_CAT_SHELTER)
                         || textMessage.equals(BUTTON_PHONE_DOG_SHELTER)) {
                     executeSendMessage(shelterKeyboardMarkup.contactSelection(chat_id));
@@ -125,7 +128,7 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                     executeSendMessage(shelterKeyboardMarkup.saveClientContact(chat_id, update));
                     isWaitNumber = false;
                 } else if (textMessage.equals(BUTTON_VOLUNTEER_CAT_SHELTER)) {
-                    executeSendMessage(shelterService.getVolunteersShelter(chat_id));
+                    executeSendMessage(shelterCatService.getVolunteersShelter(chat_id));
 
                 } else if (textMessage.equals(BUTTON_DOG_SHELTER)
                         || textMessage.equals(BUTTON_TO_THE_BEGINNING_DOG)) {
@@ -134,19 +137,19 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                 } else if (textMessage.equals(BUTTON_INFO_DOG_SHELTER)) {
                     executeSendMessage(keyboardMarkup.boardMarkupStageOneDog(chat_id));
                 } else if (textMessage.equals(BUTTON_ABOUT_DOG_SHELTER)) {
-                    executeSendMessage(shelterService.shelterStoryDog(chat_id));
+                    executeSendMessage(shelterDogService.shelterStory(chat_id));
                 } else if (textMessage.equals(BUTTON_MODE_DOG_SHELTER)) {
-                    executeSendMessage(shelterService.getWorkScheduleFromDB(chat_id));
+                    executeSendMessage(shelterDogService.getWorkScheduleFromDB(chat_id));
                 } else if (textMessage.equals(BUTTON_ADDRESS_DOG_SHELTER)) {
-                    executeSendMessage(shelterService.getAddressFromDB(chat_id));
+                    executeSendMessage(shelterDogService.getAddressFromDB(chat_id));
                 } else if (textMessage.equals(BUTTON_SCHEME_DOG_SHELTER)) {
-                    executePhoto(shelterService.getDrivingDirections(chat_id));
+                    executePhoto(shelterDogService.getDrivingDirections(chat_id));
                 } else if (textMessage.equals(BUTTON_PASS_DOG_SHELTER)) {
-                    executeSendMessage(shelterService.getShelterPhoneNumberSecurityFromDB(chat_id));
+                    executeSendMessage(shelterDogService.getShelterPhoneNumberSecurityFromDB(chat_id));
                 } else if (textMessage.equals(BUTTON_SAFETY_DOG_SHELTER)) {
-                    executeSendMessage(shelterService.getShelterSafetyPrecautionsSecurityFromDB(chat_id));
+                    executeSendMessage(shelterDogService.getShelterSafetyPrecautionsSecurityFromDB(chat_id));
                 } else if (textMessage.equals(BUTTON_VOLUNTEER_DOG_SHELTER)) {
-                    executeSendMessage(shelterService.getVolunteersShelter(chat_id));
+                    executeSendMessage(shelterDogService.getVolunteersShelter(chat_id));
 
 
                 } else if (textMessage.equals(BUTTON_DATING_RULES)) {

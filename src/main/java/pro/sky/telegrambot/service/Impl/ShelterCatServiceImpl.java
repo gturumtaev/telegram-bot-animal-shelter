@@ -2,15 +2,8 @@ package pro.sky.telegrambot.service.Impl;
 
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SendPhoto;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.InputFile;
-import org.telegram.telegrambots.meta.api.objects.media.InputMediaPhoto;
 import pro.sky.telegrambot.model.Volunteer;
 import pro.sky.telegrambot.repository.ClientRepository;
 import pro.sky.telegrambot.repository.DrivingDirectionsRepository;
@@ -18,26 +11,20 @@ import pro.sky.telegrambot.repository.ShelterRepository;
 import pro.sky.telegrambot.service.ShelterService;
 import pro.sky.telegrambot.service.VolunteerService;
 
-import javax.imageio.ImageIO;
 import javax.ws.rs.NotFoundException;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 
-import static pro.sky.telegrambot.constans.Constans.*;
-
 
 @Component
-public class ShelterServiceImpl implements ShelterService {
+public class ShelterCatServiceImpl implements ShelterService {
 
     private final ShelterRepository shelterRepository;
     private final DrivingDirectionsRepository drivingDirectionsRepository;
     private final VolunteerService volunteerService;
 
     @Autowired
-    public ShelterServiceImpl(ShelterRepository shelterRepository, DrivingDirectionsRepository drivingDirectionsRepository, VolunteerService volunteerService, ClientRepository clientRepository) {
+    public ShelterCatServiceImpl(ShelterRepository shelterRepository, DrivingDirectionsRepository drivingDirectionsRepository, VolunteerService volunteerService, ClientRepository clientRepository) {
         this.shelterRepository = shelterRepository;
         this.drivingDirectionsRepository = drivingDirectionsRepository;
         this.volunteerService = volunteerService;
@@ -74,14 +61,11 @@ public class ShelterServiceImpl implements ShelterService {
     }
 
     @Override
-    public SendMessage shelterStoryCat(Long chat_id) {
+    public SendMessage shelterStory(Long chat_id) {
 
         return new SendMessage(chat_id, "Наш приют занимается поиском новых хозяев для бездомных кошек");
     }
-    @Override
-    public SendMessage shelterStoryDog(Long chat_id) {
-        return new SendMessage(chat_id, "Наш приют занимается поиском новых хозяев для бездомных собак");
-    }
+
     @Override
     public SendMessage getVolunteersShelter(Long chat_id) {
         List<Volunteer> volunteersDog = volunteerService.findVolunteerByShelterId(1L);
