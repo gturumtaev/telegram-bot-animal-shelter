@@ -5,10 +5,15 @@ import com.vdurmont.emoji.EmojiParser;
 public class Constans {
 
     //Emojis
+    public final static String EMOJI_SMILEY = EmojiParser.parseToUnicode(":smiley:");
+    public final static String EMOJI_WAVE = EmojiParser.parseToUnicode(":wave:");
+    public final static String EMOJI_POINT_DOWN = EmojiParser.parseToUnicode(":point_down:");
     public final static String EMOJI_CAT = EmojiParser.parseToUnicode(":cat:");
     public final static String EMOJI_DOG = EmojiParser.parseToUnicode(":dog:");
     public final static String EMOJI_ARROW = EmojiParser.parseToUnicode(":arrow_left:");
     public final static String EMOJI_ANIMAL = EmojiParser.parseToUnicode(":monkey_face:");
+
+
 
     //Button text
 
@@ -23,6 +28,9 @@ public class Constans {
     public final static String BUTTON_REPORT_FORM = EMOJI_ANIMAL + " Форма ежедневного отчета";
     public final static String BUTTON_REPORT = EMOJI_ANIMAL + " Прислать отчет о питомце";
     public final static String BUTTON_VOLUNTEER_SHELTER = EMOJI_ANIMAL + " Обратиться к волонтеру";
+
+
+
 
     //Cat shelter
     public final static String BUTTON_CAT_SHELTER = EMOJI_CAT + " Приют для кошек";
@@ -40,6 +48,7 @@ public class Constans {
     public final static String BUTTON_ARRANGEMENT_BIG_CAT = EMOJI_CAT + " Обустройство взрослого кота";
     public final static String BUTTON_STAGE_2_CAT = EMOJI_CAT + " Как взять животное из приюта";
     public final static String BUTTON_REPORT_CAT = EMOJI_CAT + " Прислать отчет о питомце";
+
 
     //Dog shelter
     public final static String BUTTON_DOG_SHELTER = EMOJI_DOG + " Приют для собак";
@@ -59,6 +68,11 @@ public class Constans {
     public final static String BUTTON_RECOMMENDATION_DOGHANDLER = EMOJI_DOG + " Рекоммендации по проверенным кинологам";
     public final static String BUTTON_STAGE_2_DOG = EMOJI_DOG + " Как взять животное из приюта";
     public final static String BUTTON_REPORT_DOG = EMOJI_DOG + " Прислать отчет о питомце";
+
+
+
+
+
 
     //Info text
     public final static String WELCOME_MESSAGE = "Привет! Я бот который помогает найти бездомным животным своих любящих хозяев. Выберите в меню нужный вам приют";

@@ -21,9 +21,7 @@ import pro.sky.telegrambot.repository.ReportRepository;
 import pro.sky.telegrambot.service.*;
 import pro.sky.telegrambot.markup.KeyboardMarkup;
 import pro.sky.telegrambot.markup.ShelterKeyboardMarkup;
-import pro.sky.telegrambot.service.Impl.DogInfoService;
-import pro.sky.telegrambot.service.Impl.ShelterCatServiceImpl;
-import pro.sky.telegrambot.service.Impl.ShelterDogServiceImpl;
+import pro.sky.telegrambot.service.Impl.DogInfoServiceImpl;
 
 import javax.annotation.PostConstruct;
 import java.io.FileOutputStream;
@@ -48,12 +46,11 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
     private final Logger logger = LoggerFactory.getLogger(TelegramBotUpdatesListener.class);
 
     private final String photoAnimalDir;
-    private final GeneralInfoService generalInfoService;
+    private final GeneralInfoService animalInfoSelectionService;
     private final KeyboardMarkup keyboardMarkup;
-    private final ShelterCatServiceImpl shelterCatService;
-    private final ShelterDogServiceImpl shelterDogService;
+    private final ShelterService shelterService;
     private final CatInfoService catInfoService;
-    private final DogInfoService dogInfoService;
+    private final DogInfoServiceImpl dogInfoSelectionService;
 
     private ReportRepository reportRepository;
     private ClientRepository clientRepository;
@@ -64,18 +61,18 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
     private boolean reportCheckButton = false;
     @Autowired
     public TelegramBotUpdatesListener(@Value("${path.to.photo.folder}") String photoAnimalDir,
-                                      GeneralInfoService generalInfoService,
+                                      GeneralInfoService animalInfoSelectionService,
                                       KeyboardMarkup keyboardMarkup,
-                                      ShelterCatServiceImpl shelterCatService, ShelterDogServiceImpl shelterDogService, CatInfoService catInfoService,
-                                      DogInfoService dogInfoService,
+                                      ShelterService shelterService,
+                                      CatInfoService catInfoService,
+                                      DogInfoServiceImpl dogInfoSelectionService,
                                       ReportRepository reportRepository, ClientRepository clientRepository, ShelterKeyboardMarkup shelterKeyboardMarkup) {
         this.photoAnimalDir = photoAnimalDir;
-        this.generalInfoService = generalInfoService;
+        this.animalInfoSelectionService = animalInfoSelectionService;
         this.keyboardMarkup = keyboardMarkup;
-        this.shelterCatService = shelterCatService;
-        this.shelterDogService = shelterDogService;
+        this.shelterService = shelterService;
         this.catInfoService = catInfoService;
-        this.dogInfoService = dogInfoService;
+        this.dogInfoSelectionService = dogInfoSelectionService;
         this.reportRepository = reportRepository;
         this.clientRepository = clientRepository;
         this.shelterKeyboardMarkup = shelterKeyboardMarkup;
@@ -102,24 +99,24 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                         || textMessage.equals(BUTTON_BEGINNING)) {
                     executeSendMessage(KeyboardMarkup.boardMarkupCatAndDog(chat_id));
 
-                //cat
                 } else if (textMessage.equals(BUTTON_CAT_SHELTER)
                         || textMessage.equals(BUTTON_TO_THE_BEGINNING_CAT)) {
                     executeSendMessage(keyboardMarkup.boardMarkupStageZeroCat(chat_id));
+
                 } else if (textMessage.equals(BUTTON_INFO_CAT_SHELTER)) {
                     executeSendMessage(keyboardMarkup.boardMarkupStageOneCat(chat_id));
                 } else if (textMessage.equals(BUTTON_ABOUT_CAT_SHELTER)) {
-                    executeSendMessage(shelterCatService.shelterStory(chat_id));
+                    executeSendMessage(shelterService.shelterStoryCat(chat_id));
                 } else if (textMessage.equals(BUTTON_MODE_CAT_SHELTER)) {
-                    executeSendMessage(shelterCatService.getWorkScheduleFromDB(chat_id));
+                    executeSendMessage(shelterService.getWorkScheduleFromDB(chat_id));
                 } else if (textMessage.equals(BUTTON_ADDRESS_CAT_SHELTER)) {
-                    executeSendMessage(shelterCatService.getAddressFromDB(chat_id));
+                    executeSendMessage(shelterService.getAddressFromDB(chat_id));
                 } else if (textMessage.equals(BUTTON_SCHEME_CAT_SHELTER)) {
-                    executePhoto(shelterCatService.getDrivingDirections(chat_id));
+                    executePhoto(shelterService.getDrivingDirections(chat_id));
                 } else if (textMessage.equals(BUTTON_PASS_CAT_SHELTER)) {
-                    executeSendMessage(shelterCatService.getShelterPhoneNumberSecurityFromDB(chat_id));
+                    executeSendMessage(shelterService.getShelterPhoneNumberSecurityFromDB(chat_id));
                 } else if (textMessage.equals(BUTTON_SAFETY_CAT_SHELTER)) {
-                    executeSendMessage(shelterCatService.getShelterSafetyPrecautionsSecurityFromDB(chat_id));
+                    executeSendMessage(shelterService.getShelterSafetyPrecautionsSecurityFromDB(chat_id));
                 } else if (textMessage.equals(BUTTON_PHONE_CAT_SHELTER)
                         || textMessage.equals(BUTTON_PHONE_DOG_SHELTER)) {
                     executeSendMessage(shelterKeyboardMarkup.contactSelection(chat_id));
@@ -128,42 +125,42 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                     executeSendMessage(shelterKeyboardMarkup.saveClientContact(chat_id, update));
                     isWaitNumber = false;
                 } else if (textMessage.equals(BUTTON_VOLUNTEER_CAT_SHELTER)) {
-                    executeSendMessage(shelterCatService.getVolunteersShelter(chat_id));
+                    executeSendMessage(shelterService.getVolunteersShelter(chat_id));
 
-                //dog
                 } else if (textMessage.equals(BUTTON_DOG_SHELTER)
                         || textMessage.equals(BUTTON_TO_THE_BEGINNING_DOG)) {
                     executeSendMessage(keyboardMarkup.boardMarkupStageZeroDog(chat_id));
+
                 } else if (textMessage.equals(BUTTON_INFO_DOG_SHELTER)) {
                     executeSendMessage(keyboardMarkup.boardMarkupStageOneDog(chat_id));
                 } else if (textMessage.equals(BUTTON_ABOUT_DOG_SHELTER)) {
-                    executeSendMessage(shelterDogService.shelterStory(chat_id));
+                    executeSendMessage(shelterService.shelterStoryDog(chat_id));
                 } else if (textMessage.equals(BUTTON_MODE_DOG_SHELTER)) {
-                    executeSendMessage(shelterDogService.getWorkScheduleFromDB(chat_id));
+                    executeSendMessage(shelterService.getWorkScheduleFromDB(chat_id));
                 } else if (textMessage.equals(BUTTON_ADDRESS_DOG_SHELTER)) {
-                    executeSendMessage(shelterDogService.getAddressFromDB(chat_id));
+                    executeSendMessage(shelterService.getAddressFromDB(chat_id));
                 } else if (textMessage.equals(BUTTON_SCHEME_DOG_SHELTER)) {
-                    executePhoto(shelterDogService.getDrivingDirections(chat_id));
+                    executePhoto(shelterService.getDrivingDirections(chat_id));
                 } else if (textMessage.equals(BUTTON_PASS_DOG_SHELTER)) {
-                    executeSendMessage(shelterDogService.getShelterPhoneNumberSecurityFromDB(chat_id));
+                    executeSendMessage(shelterService.getShelterPhoneNumberSecurityFromDB(chat_id));
                 } else if (textMessage.equals(BUTTON_SAFETY_DOG_SHELTER)) {
-                    executeSendMessage(shelterDogService.getShelterSafetyPrecautionsSecurityFromDB(chat_id));
+                    executeSendMessage(shelterService.getShelterSafetyPrecautionsSecurityFromDB(chat_id));
                 } else if (textMessage.equals(BUTTON_VOLUNTEER_DOG_SHELTER)) {
-                    executeSendMessage(shelterDogService.getVolunteersShelter(chat_id));
+                    executeSendMessage(shelterService.getVolunteersShelter(chat_id));
 
-                //general info
+
                 } else if (textMessage.equals(BUTTON_DATING_RULES)) {
-                    executeSendMessage(generalInfoService.dateRules(chat_id));
+                    executeSendMessage(animalInfoSelectionService.dateRules(chat_id));
                 } else if (textMessage.equals(BUTTON_TRANSPORTATION_RECOMMENDATION)) {
-                    executeSendMessage(generalInfoService.transportationRecommendation(chat_id));
+                    executeSendMessage(animalInfoSelectionService.transportationRecommendation(chat_id));
                 } else if (textMessage.equals(BUTTON_LIST_DOCUMENTS)) {
-                    executeSendMessage(generalInfoService.documentsList(chat_id));
+                    executeSendMessage(animalInfoSelectionService.documentsList(chat_id));
                 } else if (textMessage.equals(BUTTON_REASONS_REFUSAL)) {
-                    executeSendMessage(generalInfoService.listReasons(chat_id));
+                    executeSendMessage(animalInfoSelectionService.listReasons(chat_id));
                 } else if (textMessage.equals(BUTTON_LIMITED_ANIMAL)) {
-                    executeSendMessage(generalInfoService.arrangementLimitedPet(chat_id));
+                    executeSendMessage(animalInfoSelectionService.arrangementLimitedPet(chat_id));
 
-                //cat info
+
                 } else if (textMessage.equals(BUTTON_STAGE_2_CAT)) {
                     executeSendMessage(keyboardMarkup.boardMarkupStageTwoCat(chat_id));
                 } else if (textMessage.equals(BUTTON_ARRANGEMENT_CAT)) {
@@ -171,33 +168,32 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                 } else if (textMessage.equals(BUTTON_ARRANGEMENT_BIG_CAT)) {
                     executeSendMessage(catInfoService.arrangementAdultCat(chat_id));
 
-                //dog info
+
                 } else if (textMessage.equals(BUTTON_STAGE_2_DOG)) {
                     executeSendMessage(keyboardMarkup.boardMarkupStageTwoDog(chat_id));
                 } else if (textMessage.equals(BUTTON_ARRANGEMENT_DOG)) {
-                    executeSendMessage(dogInfoService.arrangementPuppy(chat_id));
+                    executeSendMessage(dogInfoSelectionService.arrangementPuppy(chat_id));
                 } else if (textMessage.equals(BUTTON_ARRANGEMENT_BIG_DOG)) {
-                    executeSendMessage(dogInfoService.arrangementAdultDog(chat_id));
+                    executeSendMessage(dogInfoSelectionService.arrangementAdultDog(chat_id));
                 } else if (textMessage.equals(BUTTON_ADVICE_DOGHANDLER)) {
-                    executeSendMessage(dogInfoService.advicesDogHandler(chat_id));
+                    executeSendMessage(dogInfoSelectionService.advicesDogHandler(chat_id));
                 } else if (textMessage.equals(BUTTON_RECOMMENDATION_DOGHANDLER)) {
-                    executeSendMessage(dogInfoService.recommendationsForProvenDogHandlers(chat_id));
+                    executeSendMessage(dogInfoSelectionService.recommendationsForProvenDogHandlers(chat_id));
 
-
-                //report
-                } else if (textMessage.equals(BUTTON_REPORT_CAT)) {
-                    executeSendMessage(keyboardMarkup.boardMarkupStageThreeCat(chat_id));
-                } else if (textMessage.equals(BUTTON_REPORT_DOG)) {
-                    executeSendMessage(keyboardMarkup.boardMarkupStageThreeDog(chat_id));
+                    // report Сдача ОТЧЕТА!
+                } else if (textMessage.equals(BUTTON_REPORT_CAT) || textMessage.equals(BUTTON_REPORT_DOG)) {
+                    executeSendMessage(keyboardMarkup.boardMarkupStageThree(chat_id));
                 } else if (textMessage.equals(BUTTON_REPORT_FORM)) {
                     executeSendMessage(new SendMessage(chat_id, "Пришлите фото питомца!"));
                     photoCheckButton = true;
 
                     Client clientRep = clientRepository.findClientByFirstName(update.message().chat().firstName());
+
                     if (clientRep == null) {
                         Client client = new Client();
                         client.setFirstName(update.message().chat().firstName());
                         client.setChatId(chat_id);
+                        client.setTookAPet(true);
                         client.setDateTimeToTook(LocalDateTime.now());
                         clientRepository.save(client);
                     } else {
@@ -206,7 +202,7 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                         clientRepository.save(clientRep);
                     }
 
-                //report text
+//                Сдача текстовой части отчета!
                 } else if (reportCheckButton) {
 
                     String photoName = "C:/photoAnimal/" + update.message().chat().firstName();
@@ -220,8 +216,7 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                 } else {
                     executeSendMessage(new SendMessage(chat_id, "Не понял Вас."));
                 }
-
-            //report photo
+                //                Сдача фото отчета!
             } else if (update.message().photo()!=null && photoCheckButton) {
 
                 createDirectoriesAndSavePhoto(update);
@@ -255,7 +250,8 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
     }
 
     private void createDirectoriesAndSavePhoto(Update update) {
-        Message message = update.message();
+        // Получение информации о фото
+        Message message = update.message(); // Получите сообщение с фото от бота
         String firstName = message.chat().firstName();
 
         PhotoSize photo = Arrays.stream(message.photo())
@@ -263,8 +259,10 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                 .orElse(null);
         String fileId = Objects.requireNonNull(photo).fileId();
 
+        // Получение пути к фото
         GetFileResponse fileResponse = telegramBot.execute(new GetFile(fileId));
         String filePath = fileResponse.file().filePath();
+        //Создание директории
         Path filePathDir = Path.of(photoAnimalDir, firstName + "/" + fileId +  "." +getFileExtension(filePath));
         try {
             Files.createDirectories(filePathDir.getParent());
@@ -272,7 +270,9 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        String fileUrl = "https://api.telegram.org/file/bot6828877043:AAEyz9qsp8KuxLXlqEOlyWizd6O5-Ro6GAE/" + filePath;
+
+        // Сохранение фото в директорию
+        String fileUrl = "https://api.telegram.org/file/bot6956888569:AAEFrZelVSc43_vrzZ6vVG1rNio1lePqzVc/" + filePath;
         String savePath = "C:/photoAnimal/" + firstName + "/" + fileId + "." + getFileExtension(filePath);
         saveFile(fileUrl, savePath);
     }
