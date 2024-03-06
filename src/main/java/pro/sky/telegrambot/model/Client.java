@@ -11,6 +11,7 @@ import java.util.Objects;
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "INTEGER")
     private Long id;
 
     @Column(name = "first_name")

@@ -7,6 +7,7 @@ import java.util.Objects;
 public class Shelter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     private String workSchedule;
