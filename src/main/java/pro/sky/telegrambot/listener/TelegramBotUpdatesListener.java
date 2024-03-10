@@ -62,6 +62,8 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
     private boolean isWaitNumber = false;
     private boolean photoCheckButton = false;
     private boolean reportCheckButton = false;
+    @Value("${telegram.bot.token}")
+    private String token;
     @Autowired
     public TelegramBotUpdatesListener(@Value("${path.to.photo.folder}") String photoAnimalDir,
                                       GeneralInfoService animalInfoSelectionService,
@@ -275,7 +277,7 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
         }
 
         // Сохранение фото в директорию
-        String fileUrl = "https://api.telegram.org/file/bot6956888569:AAEFrZelVSc43_vrzZ6vVG1rNio1lePqzVc/" + filePath;
+        String fileUrl = "https://api.telegram.org/file/bot" + token + "/" + filePath;
         String savePath = "C:/photoAnimal/" + firstName + "/" + fileId + "." + getFileExtension(filePath);
         saveFile(fileUrl, savePath);
     }

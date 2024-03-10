@@ -13,17 +13,17 @@ CREATE TABLE shelter (
 CREATE TABLE driving_directions (
         id SERIAL PRIMARY KEY,
         file_path VARCHAR(255) NOT NULL,
-        shelter_id INT,
+        shelter_id BIGINT,
         FOREIGN KEY (shelter_id) REFERENCES shelter(id)
 );
 
 --changeset gturumtaev:2
 
 CREATE TABLE volunteers (
-        id BIGINT PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
         first_name TEXT NOT NULL,
         phone_number TEXT NOT NULL,
-        shelter_id int,
+        shelter_id BIGINT,
         FOREIGN KEY (shelter_id) REFERENCES shelter(id)
 );
 
@@ -58,7 +58,7 @@ CREATE TABLE animal_dog (
                             color TEXT,
                             breed TEXT,
                             validity boolean,
-                            shelter_id INT,
+                            shelter_id BIGINT,
                             FOREIGN KEY (shelter_id) REFERENCES shelter(id)
 );
 
@@ -71,7 +71,7 @@ CREATE TABLE animal_cat (
                             color TEXT,
                             breed TEXT,
                             validity boolean,
-                            shelter_id INT,
+                            shelter_id BIGINT,
                             FOREIGN KEY (shelter_id) REFERENCES shelter(id)
 );
 

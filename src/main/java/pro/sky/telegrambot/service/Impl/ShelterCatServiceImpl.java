@@ -44,7 +44,7 @@ public class ShelterCatServiceImpl implements ShelterService {
     @Override
     public SendPhoto getDrivingDirections(Long chat_id) {
         String url = Objects.requireNonNull(drivingDirectionsRepository.findById(1L).orElse(null)).getFilePath();
-        url = url.substring(0, url.length() - 1);
+//        url = url.substring(0, url.length() - 1);
         return new SendPhoto(chat_id, url);
     }
 
